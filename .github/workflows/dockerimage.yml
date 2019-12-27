@@ -1,14 +1,17 @@
-name: Publish Docker
+name: Docker Image CI
+
 on: [push]
+
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@master
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
-      with:
-        name: andrewmichaelsmith/tor-relay
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        registry: docker.pkg.github.com
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: |
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.pkg.github.com
+        docker build . --file Dockerfile --tag docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest .
+        docker push docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest
