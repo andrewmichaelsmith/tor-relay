@@ -16,8 +16,8 @@
 # 		--name tor-relay \
 # 		jess/tor-relay -f /etc/tor/torrc.exit
 #
-FROM alpine:latest
-LABEL maintainer "Jessie Frazelle <jess@linux.com>"
+FROM alpine:edge
+LABEL maintainer "Andy Smith <me@andrewmichaelsmith.com>"
 
 RUN apk --no-cache add \
 	bash \
