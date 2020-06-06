@@ -23,7 +23,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.pkg.github.com
         docker build --file Dockerfile --tag docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest .
-        TOR_VERSION=$(docker run --entrypoint tor docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest --version | sed -n 2p | cut -d'' '' -f 3)
+        TOR_VERSION=$(docker run --entrypoint tor docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest --version | sed -n 2p | cut -d' ' -f 3)
         IMAGE_VERSION=$TOR_VERSION$GITHUB_RUN_NUMBER
         echo $IMAGE_VERSION
         docker tag docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:$IMAGE_VERSION
