@@ -5,7 +5,6 @@ on:
     branches:
       - master
   schedule:
-    # * is a special character in YAML so you have to quote this string
     - cron:  '30 1 * * *'
 
 jobs:
@@ -21,12 +20,12 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
-        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.pkg.github.com
-        docker build --file Dockerfile --tag docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest .
-        TOR_VERSION=$(docker run --entrypoint tor docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest --version | sed -n 2p | cut -d' ' -f 3)
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD https://ghcr.io
+        docker build --file Dockerfile --tag ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:latest .
+        TOR_VERSION=$(docker run --entrypoint tor ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:latest --version | sed -n 2p | cut -d' ' -f 3)
         IMAGE_VERSION=$TOR_VERSION$GITHUB_RUN_NUMBER
         echo $IMAGE_VERSION
-        docker tag docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:$IMAGE_VERSION
-        docker push docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:latest
-        docker push docker.pkg.github.com/andrewmichaelsmith/tor-relay/tor-relay:$IMAGE_VERSION
+        docker tag ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:latest ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:$IMAGE_VERSION
+        docker push ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:latest
+        docker push ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:$IMAGE_VERSION
 
