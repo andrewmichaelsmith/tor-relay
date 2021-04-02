@@ -21,3 +21,17 @@ mkdir certs
 sudo chown 100:100 certs/
 docker run -v `pwd`/certs:/var/lib/tor/.tor/ x
 ```
+
+# Kubernetes secret from keys
+
+```
+cd certs
+kubectl create secret -o yaml generic tor-keys \
+   --from-file=./secret_id_key \
+   --from-file=./ed25519_signing_secret_key \
+   --from-file=./ed25519_signing_cert \
+   --from-file=./ed25519_master_id_secret_key \
+   --from-file=./ed25519_master_id_public_key \
+   --from-file=./secret_onion_key_ntor \
+   --from-file=./secret_onion_key > tor-keys.yaml
+```
