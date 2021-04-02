@@ -11,4 +11,13 @@
 | **RELAY_BANDWIDTH_BURST**    | Allow temporary bursts up to a certain amount                                | 200 KBytes    |
 | **RELAY_PORT**               | Default port used for incoming Tor connections (ORPort)                      | 9001          |
 
+## Generate keys
 
+Maybe you want  to generate them so that you can inject them in another way.
+
+```
+docker build -t x .
+mkdir certs
+sudo chown 100:100 certs/
+docker run -v `pwd`/certs:/var/lib/tor/.tor/ x
+```
