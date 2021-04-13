@@ -22,7 +22,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD https://ghcr.io
         docker build --file Dockerfile --tag ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:latest .
-        TOR_VERSION=$(docker run --entrypoint tor ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:latest --version | cut -d' ' -f 3)
+        TOR_VERSION=$(docker run --entrypoint tor ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:latest -f /etc/tor/torrc --version | grep version | cut -d' ' -f 3)
         IMAGE_VERSION=$TOR_VERSION$GITHUB_RUN_NUMBER
         echo $IMAGE_VERSION
         docker tag ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:latest ghcr.io/andrewmichaelsmith/tor-relay/tor-relay:$IMAGE_VERSION
