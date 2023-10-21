@@ -42,6 +42,7 @@ ENV RELAY_TYPE middle
 ENV RELAY_BANDWIDTH_RATE 100 KBytes
 ENV RELAY_BANDWIDTH_BURST 200 KBytes
 ENV RELAY_PORT 9001
+ENV ADDRESS localhost
 
 # make sure files are owned by tor user
 RUN chown -R tor /etc/tor
