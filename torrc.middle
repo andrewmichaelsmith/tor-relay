@@ -79,6 +79,8 @@
 #
 ## See https://www.torproject.org/docs/tor-doc-relay for details.
 
+Address ADDRESS
+
 ## Required: what port to advertise for incoming Tor connections.
 ORPort RELAY_PORT
 ## If you want to listen on a port other than the one advertised in
